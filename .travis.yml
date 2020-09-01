@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -f ./client/Dockerfile.dev -t shakirovusa/multidocker-client ./client
+script:
+  - docker run -e CI=true shakirovusa/multidocker-client npm run test
+after_success:
+  - docker build -t shakirovusa/multidocker-client ./client
+  - docker build -t shakirovusa/multidocker-api ./api
+  - docker build -t shakirovusa/multidocker-nginx ./nginx
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
+  - docker push shakirovusa/multidocker-client
+  - docker push shakirovusa/multidocker-api
+  - docker push shakirovusa/multidocker-nginx
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: '$ACCESS_ID'
+  secret_access_key: '$ACCESS_SECRET'
+  region: 'eu-central-1'
+  app: 'Multidocker'
+  env: 'MultiDocker-env'
+  bucket_name: elasticbeanstalk-eu-central-1-251245837115
+  bucker_path: Multidocker
+  on:
+    branch: master
