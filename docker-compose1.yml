@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    image: shakirovusa/multidocker-nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - api
+      - client
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+  api:
+    image: shakirovusa/multidocker-api
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: 123456
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: postgres
+    volumes:
+      - ./api:/app
+  client:
+    image: shakirovusa/multidocker-client
+    volumes:
+      - ./client:/app
+    depends_on:
+      - postgres
+    stdin_open: true

@@ -19,7 +19,7 @@ deploy:
   secret_access_key: '$ACCESS_SECRET'
   region: 'eu-central-1'
   app: 'Multidocker'
-  env: 'MultiDocker-env'
+  env: 'Multidocker-env'
   bucket_name: elasticbeanstalk-eu-central-1-251245837115
   bucker_path: Multidocker
   on:
