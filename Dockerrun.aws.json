@@ -2,22 +2,23 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "api",
-      "image": "shakirovusa/multidocker-api",
-      "essential": false,
-      "memory": 128
-    },
-    {
       "name": "client",
       "image": "shakirovusa/multidocker-client",
+      "hostname": "client",
       "essential": false,
       "memory": 128
     },
     {
       "name": "api",
+      "image": "shakirovusa/multidocker-server",
+      "hostname": "api",
+      "essential": false,
+      "memory": 128
+    },
+    {
+      "name": "nginx",
       "image": "shakirovusa/multidocker-nginx",
       "essential": true,
-      "memory": 128,
       "portMappings": [
         {
           "hostPort": 80,
@@ -25,9 +26,10 @@
         }
       ],
       "links": [
-        "api",
-        "client"
-      ]
+        "client",
+        "api"
+      ],
+      "memory": 128
     }
   ]
 }

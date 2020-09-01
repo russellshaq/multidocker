@@ -20,12 +20,8 @@ services:
       PGHOST: postgres
       PGPORT: 5432
       PGDATABASE: postgres
-    volumes:
-      - ./api:/app
   client:
     image: shakirovusa/multidocker-client
-    volumes:
-      - ./client:/app
     depends_on:
       - postgres
     stdin_open: true

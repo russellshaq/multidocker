@@ -18,9 +18,9 @@ deploy:
   access_key_id: '$ACCESS_ID'
   secret_access_key: '$ACCESS_SECRET'
   region: 'eu-central-1'
-  app: 'Multidocker'
-  env: 'Multidocker-env'
+  app: 'complexdocker'
+  env: 'Complexdocker-env'
   bucket_name: elasticbeanstalk-eu-central-1-251245837115
-  bucker_path: Multidocker
+  bucker_path: complexdocker
   on:
     branch: master
